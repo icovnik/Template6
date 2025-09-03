@@ -33,6 +33,71 @@ Template Toolkit. Some features from TT are not planned for
 inclusion, and likewise, some feature will be included that
 are not in TT. Not all features will work the same either.
 
+=head2 Example
+
+Template file templates/simple.tt:
+
+=begin code
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Template6 Example</title>
+  </head>
+  <body> 
+    <h1>Very simiple template</h1>
+    <div>Module name: [% name %]</div>
+    <div>Tags:
+        [% FOR t = tags %] 
+            <span>[% t %]</span>
+        [% END %]
+    </div>
+  </body>
+</html>
+=end code
+
+Render the template with this code:
+
+=begin code
+#!/usr/bin/env raku
+
+use Template6;
+
+my $template = Template6.new;
+$template.add-path(".");
+my %vars = (
+    name => "Template6",
+    tags => ["template", "raku"],
+);
+my $output = $template.process("simple.tt".IO, |%vars);
+put $output;
+=end code
+
+The output looks like this:
+
+=begin code
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Template6 Example</title>
+  </head>
+  <body>
+    <h1>Very simiple template</h1>
+    <div>Module name: Template6</div>
+    <div>Tags:
+
+            <span>template</span>
+
+            <span>raku</span>
+
+    </div>
+  </body>
+</html>
+=end code
+
 =head2 Currently implemented features
 
 =head3 GET and SET statements, including implicit versions.
