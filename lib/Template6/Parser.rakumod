@@ -126,7 +126,7 @@ sub parse-template(@, @defs is copy, $localline) {
 
 sub parse-get(@, Str:D $name) {
     q:to/RAKU/
-    $output ~= $stash.get('\qq[$name]');
+    $output ~= $stash.get('\qq[$name]', :strict);
     RAKU
 }
 
